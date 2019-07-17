@@ -7,6 +7,19 @@ namespace CefSharp.MinimalExample.Wpf
         public MainWindow()
         {
             InitializeComponent();
+
+            if (Browser.BrowserSettings == null)
+            {
+              Browser.BrowserSettings = new BrowserSettings();
+            }
+
+            Browser.BrowserSettings.WebSecurity = CefState.Disabled;
+            Browser.IsBrowserInitializedChanged += BrowserControl_IsBrowserInitializedChanged;
+        }
+
+        private void BrowserControl_IsBrowserInitializedChanged(object sender, DependencyPropertyChangedEventArgs e)
+        {
+          Browser.ShowDevTools();
         }
     }
 }
