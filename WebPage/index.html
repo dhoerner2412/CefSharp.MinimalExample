@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sync Request Bug</title>
+</head>
+<body>
+<button onclick="javascript:doIPRequest()">Working in chrome and cefsharp WPF</button>
+<button onclick="javascript:doJPRequest()">Working in chrome but NOT in cefsharp WPF</button>
+<script type="text/javascript">
+   function doIPRequest() {
+       var request = new XMLHttpRequest();
+       request.open("GET", "http://dummy.restapiexample.com/api/v1/employees", false);
+	   request.setRequestHeader('Accept', 'application/json');
+	   request.setRequestHeader('Content-Type', 'application/json');
+       request.setRequestHeader('Access-Control-Allow-Origin', '*');
+	   request.setRequestHeader('Cache-Control', 'no-cache');
+       request.send();
+
+       alert("Status: " + request.status + "\nText: " + request.response.substring(0, 20));
+       console.log(JSON.stringify(request.response))
+   }
+   function doJPRequest() {
+       var request = new XMLHttpRequest();
+       request.open("GET", "https://jsonplaceholder.typicode.com/todos/1", false);
+	   request.setRequestHeader('Accept', 'application/json');
+	   request.setRequestHeader('Content-Type', 'application/json');
+       request.setRequestHeader('Access-Control-Allow-Origin', '*');
+	   request.setRequestHeader('Cache-Control', 'no-cache');
+       request.send();
+
+       alert("Status: " + request.status + "\nText: " + request.responseText);
+       console.log(JSON.stringify(request))
+   }
+</script>
+</body>
+</html>
